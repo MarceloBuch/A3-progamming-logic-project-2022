@@ -5,6 +5,7 @@ USE db_copa;
 CREATE TABLE IF NOT EXISTS tb_usuario(
 	IDUsuario INT AUTO_INCREMENT PRIMARY KEY,
     Nome_Usuario VARCHAR(255) NOT NULL,
+    Senha_Usuario VARCHAR(255) NOT NULL,
     CPF_Usuario VARCHAR(11) NOT NULL,
     Tipo_Usuario CHAR(1) NOT NULL
 );

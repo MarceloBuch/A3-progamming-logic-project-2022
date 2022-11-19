@@ -3,14 +3,20 @@ package projetoa3;
 public class Usuario {
     private int IDUsuario;
     private String NomeUsuario;
+    private String SenhaUsuario;
     private String CPFUsuario;
     private char[] TipoUsuario;
     
-    public Usuario(int IDUsuario, String NomeUsuario, String CPFUsuario, char[] TipoUsuario){
+    public Usuario(int IDUsuario, String NomeUsuario, String SenhaUsuario, String CPFUsuario, char[] TipoUsuario){
         this.IDUsuario = IDUsuario;
         this.NomeUsuario = NomeUsuario;
+        this.SenhaUsuario = SenhaUsuario;
         this.CPFUsuario = CPFUsuario;
         this.TipoUsuario = TipoUsuario;
+    }
+
+    public String getSenhaUsuario() {
+        return SenhaUsuario;
     }
 
     public int getIDUsuario() {
@@ -43,5 +49,9 @@ public class Usuario {
 
     public void setTipoUsuario(char[] TipoUsuario) {
         this.TipoUsuario = TipoUsuario;
+    }
+
+    public void setSenhaUsuario(String SenhaUsuario) {
+        this.SenhaUsuario = SenhaUsuario;
     }
 }

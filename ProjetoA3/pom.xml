@@ -11,4 +11,11 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>projetoa3.ProjetoA3</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.31</version>
+        </dependency>
+    </dependencies>
 </project>

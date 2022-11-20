@@ -5,9 +5,9 @@ public class Usuario {
     private String NomeUsuario;
     private String SenhaUsuario;
     private String CPFUsuario;
-    private char[] TipoUsuario;
+    private int TipoUsuario;
     
-    public Usuario(int IDUsuario, String NomeUsuario, String SenhaUsuario, String CPFUsuario, char[] TipoUsuario){
+    public Usuario(int IDUsuario, String NomeUsuario, String SenhaUsuario, String CPFUsuario, int TipoUsuario){
         this.IDUsuario = IDUsuario;
         this.NomeUsuario = NomeUsuario;
         this.SenhaUsuario = SenhaUsuario;
@@ -31,7 +31,7 @@ public class Usuario {
         return CPFUsuario;
     }
 
-    public char[] getTipoUsuario() {
+    public int getTipoUsuario() {
         return TipoUsuario;
     }
 
@@ -47,7 +47,7 @@ public class Usuario {
         this.CPFUsuario = CPFUsuario;
     }
 
-    public void setTipoUsuario(char[] TipoUsuario) {
+    public void setTipoUsuario(int TipoUsuario) {
         this.TipoUsuario = TipoUsuario;
     }
 

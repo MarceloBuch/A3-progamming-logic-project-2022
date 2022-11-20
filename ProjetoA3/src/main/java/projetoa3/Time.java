@@ -1,6 +1,6 @@
 package projetoa3;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Time {
     private int IDTime;

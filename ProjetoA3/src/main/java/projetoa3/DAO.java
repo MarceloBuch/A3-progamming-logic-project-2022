@@ -29,7 +29,7 @@ public class DAO {
     }
     
     public void atualizarUsuario (Usuario usuario) throws Exception{ 
-        String sql = "UPDATE tb_usuario SET Nome_Usario = ?, CPF_Usuario = ?, Tipo_Usuario = ? WHERE IDUsuario = ?"; 
+        String sql = "UPDATE tb_usuario SET Nome_Usuario = ?, CPF_Usuario = ?, Tipo_Usuario = ? WHERE IDUsuario = ?"; 
         try (Connection conexao = ConexaoDB.obterConexao(); 
                 PreparedStatement ps = conexao.prepareStatement(sql)){ 
                     ps.setString (1, usuario.getNomeUsuario()); 

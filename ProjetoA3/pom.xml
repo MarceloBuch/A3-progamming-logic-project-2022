@@ -9,12 +9,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
-        <exec.mainClass>projetoa3.ProjetoA3</exec.mainClass>
+        <exec.mainClass>projetoa3.Login</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <version>8.0.31</version>
         </dependency>
     </dependencies>

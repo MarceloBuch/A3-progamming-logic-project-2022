@@ -14,6 +14,11 @@ public class Usuario {
         this.CPFUsuario = CPFUsuario;
         this.TipoUsuario = TipoUsuario;
     }
+    
+    public Usuario(String NomeUsuario, String SenhaUsuario){
+        this.NomeUsuario = NomeUsuario;
+        this.SenhaUsuario = SenhaUsuario;
+    }
 
     public String getSenhaUsuario() {
         return SenhaUsuario;

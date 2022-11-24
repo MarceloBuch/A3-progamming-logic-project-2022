@@ -61,8 +61,18 @@ public class JogadorTela extends javax.swing.JFrame {
         });
 
         atualizarBtn.setText("Atualizar");
+        atualizarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBtnActionPerformed(evt);
+            }
+        });
 
         apagarBtn.setText("Apagar");
+        apagarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apagarBtnActionPerformed(evt);
+            }
+        });
 
         cancelarBtn.setText("Cancelar");
         cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -170,8 +180,80 @@ public class JogadorTela extends javax.swing.JFrame {
     }//GEN-LAST:event_comboJogadoresAncestorAdded
 
     private void cadastrarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtn1ActionPerformed
-        
+        String nome = nomeTxt.getText();
+        String posicao = posicaoTxt.getText();
+        int idade = Integer.parseInt(idadeTxt.getText());
+        if(nome == null || posicao == null || idade == 0){
+            JOptionPane.showMessageDialog (null, "Preencha todos os campos para cadastrar!");
+        }else{
+            try{
+                int escolha = JOptionPane.showConfirmDialog(null, "Confirmar cadastro" 
+                + " de novo jogador?"); 
+                if (escolha == JOptionPane.YES_OPTION){ 
+                    Jogador jogador = new Jogador(nome, idade, posicao);
+                    DAO dao = new DAO(); 
+                    dao.cadastrarJogador(jogador); 
+                    JOptionPane.showMessageDialog(null, "Usuário cadastrado com" + 
+                        " sucesso"); 
+                    IDTxt.setText("");
+                    nomeTxt.setText(""); 
+                    posicaoTxt.setText("");
+                }
+            }
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica, tente mais tarde"); 
+                e.printStackTrace(); 
+            }
+        }
     }//GEN-LAST:event_cadastrarBtn1ActionPerformed
+
+    private void apagarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarBtnActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(null, "Remover Jogador?"); 
+        if (escolha == JOptionPane.YES_OPTION){ 
+            try{ 
+                int id = Integer.parseInt (IDTxt.getText()); 
+                Jogador jogador = new Jogador(id); 
+                DAO dao = new DAO(); 
+                dao.removerJogador(jogador); 
+                JOptionPane.showMessageDialog(null, "Jogador removido com sucesso!"); 
+                nomeTxt.setText(""); 
+                IDTxt.setText(""); 
+                posicaoTxt.setText(""); 
+                idadeTxt.setText("");
+            } 
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente " 
+                    +"mais tarde."); 
+                e.printStackTrace(); 
+            } 
+             
+        }
+    }//GEN-LAST:event_apagarBtnActionPerformed
+
+    private void atualizarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBtnActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(null, "Atualizar Usuário?"); 
+        if (escolha == JOptionPane.YES_OPTION){ 
+            try{ 
+                int id = Integer.parseInt (IDTxt.getText()); 
+                String nome = nomeTxt.getText(); 
+                int idade = Integer.parseInt(idadeTxt.getText()); 
+                String posicao = posicaoTxt.getText();
+                Jogador jogador = new Jogador(id, nome, idade, posicao);
+                DAO dao = new DAO(); 
+                dao.atualizarJogador(jogador); 
+                JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso");
+                nomeTxt.setText(""); 
+                IDTxt.setText(""); 
+                idadeTxt.setText(""); 
+                posicaoTxt.setText("");
+            } 
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente " 
+                    + "mais tarde."); 
+                e.printStackTrace(); 
+            } 
+        }
+    }//GEN-LAST:event_atualizarBtnActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {

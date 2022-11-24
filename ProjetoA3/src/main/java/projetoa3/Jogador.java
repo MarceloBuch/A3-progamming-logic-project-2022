@@ -13,6 +13,16 @@ public class Jogador {
         this.Idade_Jogador = Idade_Jogador;
         this.Posicao_Jogador = Posicao_Jogador;
     }
+    
+    public Jogador( String Nome_Jogador,int Idade_Jogador, String Posicao_Jogador){
+        this.Nome_Jogador = Nome_Jogador;
+        this.Idade_Jogador = Idade_Jogador;
+        this.Posicao_Jogador = Posicao_Jogador;
+    }
+    
+    public Jogador(int IDJogador){
+        this.IDJogador = IDJogador;
+    }
 
     public int getIdade_Jogador() {
         return Idade_Jogador;

@@ -10,6 +10,11 @@ public class Time {
         this.Nome_Time = Nome_Time;
         this.Estadio = Estadio;
     }
+    
+    public Time( String Nome_Time, String Estadio){
+        this.Nome_Time = Nome_Time;
+        this.Estadio = Estadio;
+    }
 
     public int getIDTime() {
         return IDTime;
@@ -33,5 +38,10 @@ public class Time {
 
     public void setEstadio(String Estadio) {
         this.Estadio = Estadio;
+    }
+    
+    @Override
+    public String toString(){
+        return this.Nome_Time;
     }
 }

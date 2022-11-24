@@ -1,18 +1,15 @@
 package projetoa3;
 
-import java.sql.Date;
 
 public class Jogador {
     private int IDJogador;
     private String Nome_Jogador;
-    private Date Data_Nascimento;
     private String Posicao_Jogador;
     private int IDTime;
     
-    public Jogador(int IDJogador, String Nome_Jogador, Date Data_Nascimento, String Posicao_Jogador, int IDTime){
+    public Jogador(int IDJogador, String Nome_Jogador, String Posicao_Jogador, int IDTime){
         this.IDJogador = IDJogador;
         this.Nome_Jogador = Nome_Jogador;
-        this.Data_Nascimento = Data_Nascimento;
         this.Posicao_Jogador = Posicao_Jogador;
         this.IDTime = IDTime;
     }
@@ -23,10 +20,6 @@ public class Jogador {
 
     public String getNome_Jogador() {
         return Nome_Jogador;
-    }
-
-    public Date getData_Nascimento() {
-        return Data_Nascimento;
     }
 
     public String getPosicao_Jogador() {
@@ -43,10 +36,6 @@ public class Jogador {
 
     public void setNome_Jogador(String Nome_Jogador) {
         this.Nome_Jogador = Nome_Jogador;
-    }
-
-    public void setData_Nascimento(Date Data_Nascimento) {
-        this.Data_Nascimento = Data_Nascimento;
     }
 
     public void setPosicao_Jogador(String Posicao_Jogador) {

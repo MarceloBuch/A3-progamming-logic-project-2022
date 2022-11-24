@@ -19,5 +19,6 @@ CREATE TABLE IF NOT EXISTS tb_time(
 CREATE TABLE IF NOT EXISTS tb_jogador(
 	IDJogador INT AUTO_INCREMENT PRIMARY KEY,
     Nome_Jogador VARCHAR(255) NOT NULL,
+    Idade_Jogador INT NOT NULL,	
     Posicao_Jogador VARCHAR(255) NOT NULL
 );

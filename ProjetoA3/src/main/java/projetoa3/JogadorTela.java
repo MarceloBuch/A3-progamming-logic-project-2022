@@ -24,6 +24,7 @@ public class JogadorTela extends javax.swing.JFrame {
         atualizarBtn = new javax.swing.JButton();
         apagarBtn = new javax.swing.JButton();
         cancelarBtn = new javax.swing.JButton();
+        idadeTxt = new javax.swing.JTextField();
 
         cadastrarBtn.setText("Cadastrar");
 
@@ -53,6 +54,11 @@ public class JogadorTela extends javax.swing.JFrame {
         posicaoTxt.setBorder(javax.swing.BorderFactory.createTitledBorder("Posição "));
 
         cadastrarBtn1.setText("Cadastrar");
+        cadastrarBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarBtn1ActionPerformed(evt);
+            }
+        });
 
         atualizarBtn.setText("Atualizar");
 
@@ -64,6 +70,8 @@ public class JogadorTela extends javax.swing.JFrame {
                 cancelarBtnActionPerformed(evt);
             }
         });
+
+        idadeTxt.setBorder(javax.swing.BorderFactory.createTitledBorder("Idade"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -83,7 +91,8 @@ public class JogadorTela extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(atualizarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idadeTxt, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(68, 68, 68))
         );
         jPanel1Layout.setVerticalGroup(
@@ -97,7 +106,9 @@ public class JogadorTela extends javax.swing.JFrame {
                 .addComponent(nomeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(posicaoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(idadeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(apagarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -105,7 +116,7 @@ public class JogadorTela extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(atualizarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,6 +144,7 @@ public class JogadorTela extends javax.swing.JFrame {
         IDTxt.setText(Integer.toString(jogador.getIDJogador()));
         nomeTxt.setText(jogador.getNome_Jogador()); 
         posicaoTxt.setText(jogador.getPosicao_Jogador());
+        idadeTxt.setText(Integer.toString(jogador.getIdade_Jogador()));
     }//GEN-LAST:event_comboJogadoresActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
@@ -151,11 +163,15 @@ public class JogadorTela extends javax.swing.JFrame {
             }
 	} 
 	catch (Exception e){ 
-		JOptionPane.showMessageDialog(null, "Times indisponíveis, tente "
+		JOptionPane.showMessageDialog(null, "Jogadores indisponíveis, tente "
 		+ "novamente mais tarde."); 
 		e.printStackTrace(); 
 	} 
     }//GEN-LAST:event_comboJogadoresAncestorAdded
+
+    private void cadastrarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtn1ActionPerformed
+        
+    }//GEN-LAST:event_cadastrarBtn1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -173,6 +189,7 @@ public class JogadorTela extends javax.swing.JFrame {
     private javax.swing.JButton cadastrarBtn1;
     private javax.swing.JButton cancelarBtn;
     private javax.swing.JComboBox comboJogadores;
+    private javax.swing.JTextField idadeTxt;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomeTxt;
     private javax.swing.JTextField posicaoTxt;

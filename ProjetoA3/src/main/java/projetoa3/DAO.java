@@ -46,18 +46,19 @@ public class DAO {
                 ResultSet.TYPE_SCROLL_INSENSITIVE, 
                 ResultSet.CONCUR_READ_ONLY); 
             ResultSet rs = ps.executeQuery()){ 
-            int totalDeJogadores = rs.last () ? rs.getRow() : 0; 
+            int totalDeJogadores = rs.last () ? rs.getRow() : 0;
             Jogador[] jogadores = new Jogador[totalDeJogadores];
             rs.beforeFirst(); 
             int contador = 0; 
             while (rs.next()){ 
                 int id = rs.getInt("IDJogador"); 
-                String nome = rs.getString("Nome_Jogador"); 
-                String posicao = rs.getString ("Posicao_Jogador"); 
-                jogadores[contador++] = new Jogador(id, nome, posicao); 
+                String nome = rs.getString("Nome_Jogador");
+                int idade = rs.getInt("Idade_Jogador");
+                String posicao =  rs.getString("Posicao_Jogador");
+                jogadores[contador++] = new Jogador(id, nome, idade, posicao); 
             } 
             return jogadores; 
-        } 
+        }
     }
     
     public Usuario[] obterUsuarios () throws Exception{ 
@@ -151,23 +152,25 @@ public class DAO {
     }
     
     public void cadastrarJogador(Jogador jogador) throws Exception{
-        String sql = "INSERT INTO tb_jogador(IDJogador, Nome_Jogador, Posicao_jogador) VALUES (default, ?,?)";
+        String sql = "INSERT INTO tb_jogador(IDJogador, Nome_Jogador, Idade_Jogador, Posicao_jogador) VALUES (default, ?, ?, ?)";
         try(Connection conn = ConexaoDB.obterConexao()){
             PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, jogador.getNome_Jogador());
-                ps.setString(2, jogador.getPosicao_Jogador());
+                ps.setInt(2, jogador.getIdade_Jogador());
+                ps.setString(3, jogador.getPosicao_Jogador());
                 ps.execute(); 
         }
     
     }
     
     public void atualizarJogador(Jogador jogador) throws Exception{
-        String sql = "UPDATE tb_jogador SET Nome_Jogador = ?, Posicao_Jogador = ? WHERE IDJogador = ?";
+        String sql = "UPDATE tb_jogador SET Nome_Jogador = ?, Posicao_Jogador = ?, Idade_Jogador = ? WHERE IDJogador = ?";
         try(Connection conn = ConexaoDB.obterConexao()){
             PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, jogador.getNome_Jogador());
                 ps.setString(2, jogador.getPosicao_Jogador());
-                ps.setInt(3, jogador.getIDJogador());
+                ps.setInt(3, jogador.getIdade_Jogador());
+                ps.setInt(4, jogador.getIDJogador());
                 ps.execute(); 
         }
     

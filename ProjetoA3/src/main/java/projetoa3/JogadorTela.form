@@ -77,6 +77,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="cancelarBtn" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="idadeTxt" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
               </Group>
@@ -93,7 +94,9 @@
                   <Component id="nomeTxt" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="posicaoTxt" min="-2" pref="38" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="idadeTxt" min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cadastrarBtn1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="apagarBtn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -103,7 +106,7 @@
                       <Component id="cancelarBtn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="atualizarBtn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -154,6 +157,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarBtn1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="atualizarBtn">
           <Properties>
@@ -172,6 +178,15 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarBtnActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="idadeTxt">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder title="Idade"/>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

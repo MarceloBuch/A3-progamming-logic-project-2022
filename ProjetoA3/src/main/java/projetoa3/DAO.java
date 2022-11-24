@@ -38,6 +38,52 @@ public class DAO {
         } 
     }
     
+    public Jogador[] obterJogadores () throws Exception{ 
+        String sql = "SELECT * FROM tb_jogador"; 
+        try (Connection conn = ConexaoDB.obterConexao(); 
+            PreparedStatement ps = 
+            conn.prepareStatement(sql, 
+                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                ResultSet.CONCUR_READ_ONLY); 
+            ResultSet rs = ps.executeQuery()){ 
+            int totalDeJogadores = rs.last () ? rs.getRow() : 0; 
+            Jogador[] jogadores = new Jogador[totalDeJogadores];
+            rs.beforeFirst(); 
+            int contador = 0; 
+            while (rs.next()){ 
+                int id = rs.getInt("IDJogador"); 
+                String nome = rs.getString("Nome_Jogador"); 
+                String posicao = rs.getString ("Posicao_Jogador"); 
+                jogadores[contador++] = new Jogador(id, nome, posicao); 
+            } 
+            return jogadores; 
+        } 
+    }
+    
+    public Usuario[] obterUsuarios () throws Exception{ 
+        String sql = "SELECT * FROM tb_usuario"; 
+        try (Connection conn = ConexaoDB.obterConexao(); 
+            PreparedStatement ps = 
+            conn.prepareStatement(sql, 
+                ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                ResultSet.CONCUR_READ_ONLY); 
+            ResultSet rs = ps.executeQuery()){ 
+            int totalDeUsuarios = rs.last () ? rs.getRow() : 0;
+            Usuario[] usuarios = new Usuario[totalDeUsuarios];
+            rs.beforeFirst(); 
+            int contador = 0; 
+            while (rs.next()){ 
+                int id = rs.getInt("IDUsuario"); 
+                String nome = rs.getString("Nome_Usuario");
+                String senha = rs.getString("Senha_Usuario");
+                String cpf =  rs.getString("CPF_Usuario");
+                int tipo = rs.getInt("Tipo_Usuario");
+                usuarios[contador++] = new Usuario(id, nome, senha, cpf, tipo);  
+            } 
+            return usuarios; 
+        } 
+    }
+    
     public void cadastrarUsuario(Usuario usuario) throws Exception{
         String sql = "INSERT INTO tb_usuario(IDUsuario, Nome_Usuario, Senha_Usuario, CPF_Usuario, Tipo_Usuario) values(default, ?, ?, ?, 0)";
         try(Connection conn = ConexaoDB.obterConexao()){
@@ -51,12 +97,14 @@ public class DAO {
     }
     
     public void atualizarUsuario (Usuario usuario) throws Exception{ 
-        String sql = "UPDATE tb_usuario SET Nome_Usuario = ?, CPF_Usuario = ?, Tipo_Usuario = ? WHERE IDUsuario = ?"; 
+        String sql = "UPDATE tb_usuario SET Nome_Usuario = ?, Senha_Usuario = ?, CPF_Usuario = ?, Tipo_Usuario = ? WHERE IDUsuario = ?"; 
         try (Connection conexao = ConexaoDB.obterConexao(); 
                 PreparedStatement ps = conexao.prepareStatement(sql)){ 
                     ps.setString (1, usuario.getNomeUsuario()); 
-                    ps.setString (2, usuario.getCPFUsuario()); 
-                    ps.setInt(3, usuario.getTipoUsuario());
+                    ps.setString(2, usuario.getSenhaUsuario());
+                    ps.setString (3, usuario.getCPFUsuario()); 
+                    ps.setInt(4, usuario.getTipoUsuario());
+                    ps.setInt(5, usuario.getIDUsuario());
                     ps.execute(); 
             } 
     }
@@ -103,25 +151,23 @@ public class DAO {
     }
     
     public void cadastrarJogador(Jogador jogador) throws Exception{
-        String sql = "INSERT INTO tb_jogador(IDJogador, Nome_Jogador, Posicao_jogador, IDTime) VALUES (default, ?,?,?)";
+        String sql = "INSERT INTO tb_jogador(IDJogador, Nome_Jogador, Posicao_jogador) VALUES (default, ?,?)";
         try(Connection conn = ConexaoDB.obterConexao()){
             PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, jogador.getNome_Jogador());
                 ps.setString(2, jogador.getPosicao_Jogador());
-                ps.setInt(3, jogador.getIDTime());
                 ps.execute(); 
         }
     
     }
     
     public void atualizarJogador(Jogador jogador) throws Exception{
-        String sql = "UPDATE tb_jogador SET Nome_Jogador = ?, Posicao_Jogador = ?, IDTime = ? WHERE IDJogador = ?";
+        String sql = "UPDATE tb_jogador SET Nome_Jogador = ?, Posicao_Jogador = ? WHERE IDJogador = ?";
         try(Connection conn = ConexaoDB.obterConexao()){
             PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, jogador.getNome_Jogador());
                 ps.setString(2, jogador.getPosicao_Jogador());
-                ps.setInt(3, jogador.getIDTime());
-                ps.setInt(4, jogador.getIDJogador());
+                ps.setInt(3, jogador.getIDJogador());
                 ps.execute(); 
         }
     

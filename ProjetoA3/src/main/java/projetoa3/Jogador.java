@@ -5,13 +5,11 @@ public class Jogador {
     private int IDJogador;
     private String Nome_Jogador;
     private String Posicao_Jogador;
-    private int IDTime;
     
-    public Jogador(int IDJogador, String Nome_Jogador, String Posicao_Jogador, int IDTime){
+    public Jogador(int IDJogador, String Nome_Jogador, String Posicao_Jogador){
         this.IDJogador = IDJogador;
         this.Nome_Jogador = Nome_Jogador;
         this.Posicao_Jogador = Posicao_Jogador;
-        this.IDTime = IDTime;
     }
 
     public int getIDJogador() {
@@ -26,10 +24,6 @@ public class Jogador {
         return Posicao_Jogador;
     }
 
-    public int getIDTime() {
-        return IDTime;
-    }
-
     public void setIDJogador(int IDJogador) {
         this.IDJogador = IDJogador;
     }
@@ -40,10 +34,6 @@ public class Jogador {
 
     public void setPosicao_Jogador(String Posicao_Jogador) {
         this.Posicao_Jogador = Posicao_Jogador;
-    }
-
-    public void setIDTime(int IDTime) {
-        this.IDTime = IDTime;
     }
     
     

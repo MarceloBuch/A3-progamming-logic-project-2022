@@ -1,5 +1,7 @@
 package projetoa3;
 
+import javax.swing.JOptionPane;
+
 public class UsuarioTela extends javax.swing.JFrame {
     public UsuarioTela() {
         super("Gerenciamento usuários");
@@ -15,7 +17,7 @@ public class UsuarioTela extends javax.swing.JFrame {
         IDTxt = new javax.swing.JTextField();
         cadastrarBtn1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        comboUsuarios = new javax.swing.JComboBox<>();
+        comboUsuarios = new javax.swing.JComboBox();
         IDTxt1 = new javax.swing.JTextField();
         nomeTxt = new javax.swing.JTextField();
         senhaTxt = new javax.swing.JTextField();
@@ -34,7 +36,15 @@ public class UsuarioTela extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerenciar Usuários"));
 
-        comboUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUsuarios.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                comboUsuariosAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         comboUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboUsuariosActionPerformed(evt);
@@ -52,10 +62,25 @@ public class UsuarioTela extends javax.swing.JFrame {
         tipoTxt.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo Usuário"));
 
         cadastrarBtn.setText("Cadastrar");
+        cadastrarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarBtnActionPerformed(evt);
+            }
+        });
 
         apagarBtn.setText("Apagar");
+        apagarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apagarBtnActionPerformed(evt);
+            }
+        });
 
         atualizarBtn.setText("Atualizar");
+        atualizarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBtnActionPerformed(evt);
+            }
+        });
 
         cancelarBtn.setText("Cancelar");
         cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +158,12 @@ public class UsuarioTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboUsuariosActionPerformed
-
+        Usuario usuario = (Usuario) comboUsuarios.getSelectedItem(); 
+        IDTxt.setText(Integer.toString(usuario.getIDUsuario())); 
+        nomeTxt.setText(usuario.getNomeUsuario()); 
+        senhaTxt.setText(usuario.getSenhaUsuario());
+        CPFTxt.setText(usuario.getCPFUsuario());
+        tipoTxt.setText(Integer.toString(usuario.getTipoUsuario()));
     }//GEN-LAST:event_comboUsuariosActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
@@ -141,6 +171,104 @@ public class UsuarioTela extends javax.swing.JFrame {
         dt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelarBtnActionPerformed
+
+    private void comboUsuariosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_comboUsuariosAncestorAdded
+        try{ 
+            DAO dao = new DAO(); 
+            Usuario [] usuarios = dao.obterUsuarios();
+            this.comboUsuarios.removeAll();
+            for(Usuario u : usuarios){
+                this.comboUsuarios.addItem(u);
+            }
+	} 
+	catch (Exception e){ 
+		JOptionPane.showMessageDialog(null, "Usuários indisponíveis, tente "
+		+ "novamente mais tarde."); 
+		e.printStackTrace(); 
+	} 
+    }//GEN-LAST:event_comboUsuariosAncestorAdded
+
+    private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
+        String nome = nomeTxt.getText();
+        String senha = senhaTxt.getText();
+        String cpf = CPFTxt.getText();
+        int tipo = Integer.parseInt(tipoTxt.getText());
+        if(tipo != 0 || tipo != 1){
+            JOptionPane.showMessageDialog (null, "Os tipos de usuários são 0 - usuário normal e 1 - admin, escolha um dos dois!");
+        }
+        if(nome == null || senha == null || cpf == null){
+            JOptionPane.showMessageDialog (null, "Preencha todos os campos para cadastrar!");
+        }else{
+            try{
+                int escolha = JOptionPane.showConfirmDialog(null, "Confirmar cadastro" 
+                + " de novo time?"); 
+                if (escolha == JOptionPane.YES_OPTION){ 
+                    Usuario usuario = new Usuario (nome, senha, cpf, tipo); 
+                    DAO dao = new DAO(); 
+                    dao.cadastrarUsuario(usuario); 
+                    JOptionPane.showMessageDialog(null, "Usuário cadastrado com" + 
+                        " sucesso"); 
+                    IDTxt.setText("");
+                    nomeTxt.setText(""); 
+                }
+            }
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica, tente mais tarde"); 
+                e.printStackTrace(); 
+            }
+        }
+    }//GEN-LAST:event_cadastrarBtnActionPerformed
+
+    private void apagarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarBtnActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(null, "Remover Usuário?"); 
+        if (escolha == JOptionPane.YES_OPTION){ 
+            try{ 
+                int id = Integer.parseInt (IDTxt.getText()); 
+                Usuario usuario = new Usuario(id); 
+                DAO dao = new DAO(); 
+                dao.removerUsuario(usuario); 
+                JOptionPane.showMessageDialog(null, "Usuário removido com sucesso!"); 
+                nomeTxt.setText(""); 
+                IDTxt.setText(""); 
+                senhaTxt.setText(""); 
+                CPFTxt.setText("");
+                tipoTxt.setText("");
+            } 
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente " 
+                    +"mais tarde."); 
+                e.printStackTrace(); 
+            } 
+             
+        } 
+    }//GEN-LAST:event_apagarBtnActionPerformed
+
+    private void atualizarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBtnActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(null, "Atualizar Usuário?"); 
+        if (escolha == JOptionPane.YES_OPTION){ 
+            try{ 
+                int id = Integer.parseInt (IDTxt.getText()); 
+                String nome = nomeTxt.getText(); 
+                String senha = senhaTxt.getText(); 
+                String cpf = CPFTxt.getText();
+                int tipo = Integer.parseInt(tipoTxt.getText());
+                Usuario usuario = new Usuario(id, nome, senha, cpf, tipo); 
+                DAO dao = new DAO(); 
+                dao.atualizarUsuario(usuario); 
+                JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso");
+                nomeTxt.setText(""); 
+                IDTxt.setText(""); 
+                senhaTxt.setText(""); 
+                CPFTxt.setText("");
+                tipoTxt.setText(""); 
+            } 
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente " 
+                    + "mais tarde."); 
+                e.printStackTrace(); 
+            } 
+        }
+    }//GEN-LAST:event_atualizarBtnActionPerformed
 
     
     public static void main(String args[]) {
@@ -160,7 +288,7 @@ public class UsuarioTela extends javax.swing.JFrame {
     private javax.swing.JButton cadastrarBtn;
     private javax.swing.JButton cadastrarBtn1;
     private javax.swing.JButton cancelarBtn;
-    private javax.swing.JComboBox<String> comboUsuarios;
+    private javax.swing.JComboBox comboUsuarios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomeTxt;
     private javax.swing.JTextField senhaTxt;

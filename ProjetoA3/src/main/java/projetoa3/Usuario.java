@@ -15,9 +15,20 @@ public class Usuario {
         this.TipoUsuario = TipoUsuario;
     }
     
+    public Usuario(String NomeUsuario, String SenhaUsuario, String CPFUsuario, int TipoUsuario){
+        this.NomeUsuario = NomeUsuario;
+        this.SenhaUsuario = SenhaUsuario;
+        this.CPFUsuario = CPFUsuario;
+        this.TipoUsuario = TipoUsuario;
+    }
+    
     public Usuario(String NomeUsuario, String SenhaUsuario){
         this.NomeUsuario = NomeUsuario;
         this.SenhaUsuario = SenhaUsuario;
+    }
+    
+    public Usuario(int IDUsuario){
+        this.IDUsuario = IDUsuario;
     }
 
     public String getSenhaUsuario() {
@@ -58,5 +69,10 @@ public class Usuario {
 
     public void setSenhaUsuario(String SenhaUsuario) {
         this.SenhaUsuario = SenhaUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return this.NomeUsuario;
     }
 }

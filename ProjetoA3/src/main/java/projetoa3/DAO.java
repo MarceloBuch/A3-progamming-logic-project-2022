@@ -87,6 +87,7 @@ public class DAO {
             PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, time.getNome_Time());
                 ps.setString(2, time.getEstadio());
+                ps.setInt(3, time.getIDTime());
                 ps.execute(); 
         }
     

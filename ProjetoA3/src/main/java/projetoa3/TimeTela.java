@@ -1,28 +1,13 @@
 package projetoa3;
 
-import javax.swing.DefaultComboBoxModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
 public class TimeTela extends javax.swing.JFrame {
-
-    private void buscarTimes(){
-    try{ 
-		DAO dao = new DAO(); 
-		Time [] times = dao.obterTimes(); 
-                this.comboTimes.removeAll();
-                for(Time t : times){
-                    this.comboTimes.addItem(t);
-                }
-	} 
-	catch (Exception e){ 
-		JOptionPane.showMessageDialog(null, "Times indisponíveis, tente "
-		+ "novamente mais tarde."); 
-		e.printStackTrace(); 
-	} 
-    }
       
-    public TimeTela() {
+    public TimeTela() throws Exception {
         super("Gerenciar Times");
         initComponents();
         setLocationRelativeTo(null);
@@ -80,8 +65,18 @@ public class TimeTela extends javax.swing.JFrame {
         });
 
         apagarBtn.setText("Apagar");
+        apagarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apagarBtnActionPerformed(evt);
+            }
+        });
 
         atualizarBtn.setText("Atualizar");
+        atualizarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atualizarBtnActionPerformed(evt);
+            }
+        });
 
         cancelarBtn.setText("Cancelar");
         cancelarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +149,7 @@ public class TimeTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nomeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTxtActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nomeTxtActionPerformed
 
     private void cancelarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarBtnActionPerformed
@@ -172,12 +167,12 @@ public class TimeTela extends javax.swing.JFrame {
 
     private void comboTimesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_comboTimesAncestorAdded
         try{ 
-		DAO dao = new DAO(); 
-		Time [] times = dao.obterTimes(); 
-                this.comboTimes.removeAll();
-                for(Time t : times){
-                    this.comboTimes.addItem(t);
-                }
+            DAO dao = new DAO(); 
+            Time [] times = dao.obterTimes(); 
+            this.comboTimes.removeAll();
+            for(Time t : times){
+                this.comboTimes.addItem(t);
+            }
 	} 
 	catch (Exception e){ 
 		JOptionPane.showMessageDialog(null, "Times indisponíveis, tente "
@@ -191,7 +186,7 @@ public class TimeTela extends javax.swing.JFrame {
         String nome = nomeTxt.getText();
         String estadio = estadioTxt.getText();
         if(nome == null && estadio == null){
-            JOptionPane.showMessageDialog (null, "Preencha o nome e o estádio para cadastrar!");
+            JOptionPane.showMessageDialog (null, "Preencha o nome do time e o estádio para cadastrar!");
         }else{
             try{
                 int escolha = JOptionPane.showConfirmDialog(null, "Confirmar cadastro" 
@@ -200,11 +195,11 @@ public class TimeTela extends javax.swing.JFrame {
                     Time time = new Time (nome, estadio); 
                     DAO dao = new DAO(); 
                     dao.cadastrarTime(time); 
-                    JOptionPane.showMessageDialog(null, "Curso cadastrado com" + 
-                        "sucesso"); 
+                    JOptionPane.showMessageDialog(null, "Time cadastrado com" + 
+                        " sucesso"); 
+                    IDTxt.setText("");
                     nomeTxt.setText(""); 
                     estadioTxt.setText("");
-                    buscarTimes();
                 }
             }
             catch (Exception e){ 
@@ -214,10 +209,59 @@ public class TimeTela extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cadastrarBtnActionPerformed
 
+    private void apagarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apagarBtnActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(null, "Remover Time?"); 
+        if (escolha == JOptionPane.YES_OPTION){ 
+            try{ 
+                int id = Integer.parseInt (IDTxt.getText()); 
+                Time time = new Time (id); 
+                DAO dao = new DAO(); 
+                dao.removerTime(time); 
+                JOptionPane.showMessageDialog(null, "Time removido com sucesso!"); 
+                nomeTxt.setText(""); 
+                IDTxt.setText(""); 
+                estadioTxt.setText(""); 
+            } 
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente " 
+                    +"mais tarde."); 
+                e.printStackTrace(); 
+            } 
+             
+        } 
+    }//GEN-LAST:event_apagarBtnActionPerformed
+
+    private void atualizarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarBtnActionPerformed
+        int escolha = JOptionPane.showConfirmDialog(null, "Atualizar time?"); 
+        if (escolha == JOptionPane.YES_OPTION){ 
+            try{ 
+                int id = Integer.parseInt (IDTxt.getText()); 
+                String nome = nomeTxt.getText(); 
+                String estadio = estadioTxt.getText(); 
+                Time time = new Time(id, nome, estadio); 
+                DAO dao = new DAO(); 
+                dao.atualizarTime(time); 
+                JOptionPane.showMessageDialog(null, "Time atualizado com sucesso");
+                IDTxt.setText(""); 
+                nomeTxt.setText(""); 
+                estadioTxt.setText(""); 
+            } 
+            catch (Exception e){ 
+                JOptionPane.showMessageDialog(null, "Falha técnica. Tente novamente " 
+                    + "mais tarde."); 
+                e.printStackTrace(); 
+            } 
+        }
+    }//GEN-LAST:event_atualizarBtnActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TimeTela().setVisible(true);
+                try {
+                    new TimeTela().setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(TimeTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -16,6 +16,10 @@ public class Time {
         this.Estadio = Estadio;
     }
 
+    Time(int IDTime) {
+        this.IDTime = IDTime;
+    }
+
     public int getIDTime() {
         return IDTime;
     }
